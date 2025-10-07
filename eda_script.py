@@ -42,3 +42,10 @@ plt.show()
 
 print(f"Average quantity involved: {df['quantity_involved'].mean():.2f}")
 print(f"Most common reason: {df['reason'].mode()[0] if not df['reason'].mode().empty else 'N/A'}")
+# Export Plotly to HTML
+fig1.write_html('trends.html')  # From trends line chart
+funnel_fig.write_html('funnel.html')  # If funnel in script
+
+# Save Matplotlib as PNG
+plt.savefig('top_products.png', dpi=300, bbox_inches='tight')
+plt.savefig('correlations.png', dpi=300, bbox_inches='tight')
