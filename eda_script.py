@@ -30,7 +30,8 @@ top_products = df.groupby('product_name')['quantity_involved'].sum().sort_values
 plt.figure(figsize=(10, 6))
 sns.barplot(x=top_products.values, y=top_products.index, palette='viridis')
 plt.title('Top Products by Quantity Involved (Dynamic Data)')
-plt.show()
+plt.savefig('top_products.png', dpi=300, bbox_inches='tight')
+plt.close()
 
 # Correlation heatmap (adapt to numerical cols like quantity, mock total_amount)
 numerical_df = df.select_dtypes(include=[np.number])
@@ -38,14 +39,17 @@ corr = numerical_df.corr()
 plt.figure(figsize=(8, 6))
 sns.heatmap(corr, annot=True, cmap='coolwarm')
 plt.title('Dynamic Data Correlations')
-plt.show()
+plt.savefig('correlations.png', dpi=300, bbox_inches='tight')
+plt.close()
+
+# Funnel chart for severity drop-offs (example: count by reason)
+reason_counts = df['reason'].value_counts().reset_index()
+reason_counts.columns = ['Reason', 'Count']
+funnel_fig = px.funnel(reason_counts, x='Count', y='Reason', title='Recall Reasons Funnel')
+funnel_fig.show()
 
 print(f"Average quantity involved: {df['quantity_involved'].mean():.2f}")
 print(f"Most common reason: {df['reason'].mode()[0] if not df['reason'].mode().empty else 'N/A'}")
 # Export Plotly to HTML
 fig1.write_html('trends.html')  # From trends line chart
-funnel_fig.write_html('funnel.html')  # If funnel in script
-
-# Save Matplotlib as PNG
-plt.savefig('top_products.png', dpi=300, bbox_inches='tight')
-plt.savefig('correlations.png', dpi=300, bbox_inches='tight')
+funnel_fig.write_html('funnel.html')  # Funnel chart

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy Analytics Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; }
+        h1 { color: #1f77b4; text-align: center; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .dashboard-links { list-style: none; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; }
+        .dashboard-links li { margin: 10px; }
+        .dashboard-links a { text-decoration: none; color: #007bff; font-size: 18px; padding: 10px; border: 1px solid #007bff; border-radius: 5px; transition: background-color 0.3s; }
+        .dashboard-links a:hover { background-color: #007bff; color: white; }
+        .description { text-align: center; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💊 Pharmacy Analytics Dashboard</h1>
+        <p class="description">Explore interactive visualizations of FDA enforcement data to predict recall risks and optimize inventory. Click the links below to view dashboards.</p>
+        <ul class="dashboard-links">
+            <li><a href="trends.html">📈 Interactive Trends (Plotly)</a></li>
+            <li><a href="funnel.html">📊 Funnel Chart (Severity Drop-offs)</a></li>
+            <li><a href="eda_notebook.html">📓 Full EDA Notebook</a></li>
+            <li><a href="https://your-streamlit-app.streamlit.app" target="_blank">🚀 Full Interactive Dashboard (Streamlit)</a></li>
+        </ul>
+        <p style="text-align: center;">For more details, see <a href="README.md">README.md</a>.</p>
+    </div>
+</body>
+</html>
