@@ -28,10 +28,8 @@ API ETL from openFDA (date-filtered queries, JSON normalization). Time series fo
 ## Live Demos (No Clone)
 - [Interactive Trends](trends.html) (Plotly zoom/hover).
 - [Funnel](funnel.html) (Severity drop-offs).
-- [Full Dashboard](https://your-streamlit-app.streamlit.app) (Deploy via share.streamlit.io).
+- [Full Dashboard](https://pharmacy-analytics-dashboard-vothj8bpsyxgqxvzzkc3wc.streamlit.app) (Deploy via share.streamlit.io).
 
 [Install if desired](install.md) | [Notebook](eda_notebook.ipynb) (Rendered plots).
 
 *"Data and AI eliminate admin burdens..."* —Robert C. González | [LinkedIn](https://linkedin.com/in/robert-g-612431384)
-
-MIT License.
