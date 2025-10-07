@@ -4,9 +4,10 @@ A comprehensive Python project for analyzing pharmacy data through API integrati
 
 ## Features
 
+- **Interactive Web Dashboard**: Streamlit-based dashboard with real-time data visualization
 - **API Integration**: Fetches real-time drug enforcement data from the openFDA API
 - **Fallback System**: Includes sample data fallback when API is unavailable
-- **Data Analysis**: Performs exploratory data analysis with visualizations
+- **Data Analysis**: Performs exploratory data analysis with interactive charts
 - **Error Handling**: Robust debugging and error resolution capabilities
 - **Professional Structure**: Well-organized codebase with clear documentation
 
@@ -38,6 +39,12 @@ pip install -r requirements.txt
 ```
 
 ## Usage
+
+### Running the Interactive Dashboard (Recommended)
+```bash
+streamlit run app.py
+```
+This launches a web-based interactive dashboard with real-time data visualization, filtering, and analytics.
 
 ### Running the EDA Script
 ```bash
