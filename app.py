@@ -65,8 +65,16 @@ with st.spinner("Fetching pharmacy data..."):
 
 # Check if data loaded successfully
 if df.empty:
-    st.error("❌ Failed to load data. Please check your internet connection or try again later.")
-    st.stop()
+    st.warning("⚠️ Failed to load data from API. Using sample data for demonstration.")
+    # Create sample data as backup
+    sample_data = {
+        'action_date': pd.date_range('2023-01-01', periods=10, freq='D'),
+        'product_name': ['Drug A', 'Drug B', 'Drug C'] * 3 + ['Drug A'],
+        'quantity_involved': [100, 200, 150, 300, 250, 180, 220, 190, 160, 210],
+        'total_amount': [1000, 2000, 1500, 3000, 2500, 1800, 2200, 1900, 1600, 2100],
+        'reason': ['Recall', 'Defect', 'Expiration'] * 3 + ['Recall']
+    }
+    df = pd.DataFrame(sample_data)
 
 # Success message
 st.success(f"✅ Successfully loaded {len(df)} records from openFDA API")

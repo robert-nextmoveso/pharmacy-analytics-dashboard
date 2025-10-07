@@ -21,7 +21,7 @@ except Exception as e:
 end_date = datetime.now().strftime('%Y-%m-%d')
 start_date = (datetime.now() - timedelta(days=5*365)).strftime('%Y-%m-%d')
 params = {
-    'search': f'report_date:[{start_date}+TO+{end_date}]',
+    'search': f'report_date:[{start_date} TO {end_date}]',
     'limit': 300
 }
 print(f'\nTesting with +TO+ and limit=300: {params["search"]}')
