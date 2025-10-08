@@ -106,7 +106,7 @@ with col4:
     st.markdown('</div>', unsafe_allow_html=True)
 
 # Main content tabs
-tab1, tab2, tab3, tab4 = st.tabs(["📈 Trends", "📊 Products", "🔗 Correlations", "📋 Raw Data"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["📈 Trends", "📊 Products", "🔗 Correlations", "📋 Raw Data", "🆚 A/B Comparison"])
 
 with tab1:
     st.header("📈 Recall Trends Over Time")
@@ -116,13 +116,18 @@ with tab1:
     daily_trends = df.groupby(df['action_date'].dt.date)['total_amount'].sum().reset_index()
     daily_trends.columns = ['Date', 'Total Amount']
 
-    # Interactive line chart
+    # Interactive line chart with severity color-coding
+    daily_trends_sev = df.groupby([df['action_date'].dt.date, 'severity'])['total_amount'].sum().reset_index()
+    daily_trends_sev.columns = ['Date', 'Severity', 'Total Amount']
+
     fig_trends = px.line(
-        daily_trends,
+        daily_trends_sev,
         x='Date',
         y='Total Amount',
-        title='Daily Recall Trends',
-        template='plotly_white'
+        color='Severity',
+        title='Daily Recall Trends by Severity',
+        template='plotly_white',
+        color_discrete_map={'High': 'red', 'Med': 'orange', 'Low': 'blue'}
     )
     fig_trends.update_layout(
         xaxis_title="Date",
@@ -130,6 +135,7 @@ with tab1:
         hovermode='x unified'
     )
     st.plotly_chart(fig_trends, use_container_width=True)
+    st.markdown("**Business Outcome:** Hover to see severity trends—spikes in red (high severity) signal urgent compliance actions to prevent $X losses.")
 
     # Monthly trends
     monthly_trends = df.groupby(df['action_date'].dt.to_period('M'))['total_amount'].sum().reset_index()
@@ -151,23 +157,28 @@ with tab1:
 with tab2:
     st.header("📊 Product Analysis")
 
-    # Top products by quantity
-    top_products = df.groupby('product_name')['quantity_involved'].sum().sort_values(ascending=False).head(10)
+    # Top products by quantity with severity color-coding
+    top_products_df = df.groupby('product_name').agg({'quantity_involved': 'sum', 'severity': lambda x: x.mode()[0] if not x.mode().empty else 'Low'}).sort_values('quantity_involved', ascending=False).head(10).reset_index()
 
-    # Horizontal bar chart
+    # Horizontal bar chart with color by severity
+    color_map = {'High': 'red', 'Med': 'orange', 'Low': 'green'}
     fig_products = px.bar(
-        x=top_products.values,
-        y=top_products.index,
+        top_products_df,
+        x='quantity_involved',
+        y='product_name',
         orientation='h',
-        title='Top 10 Products by Quantity Involved',
+        title='Top 10 Products by Quantity Involved (Color-Coded by Severity)',
         template='plotly_white',
-        labels={'x': 'Quantity Involved', 'y': 'Product Name'}
+        color='severity',
+        color_discrete_map=color_map,
+        labels={'quantity_involved': 'Quantity Involved', 'product_name': 'Product Name', 'severity': 'Severity'}
     )
     fig_products.update_layout(
         xaxis_title="Quantity Involved",
         yaxis_title="Product Name"
     )
     st.plotly_chart(fig_products, use_container_width=True)
+    st.markdown("**Tooltip Insight:** Red bars indicate high-severity products—prioritize these for compliance audits to reduce patient safety risks.")
 
     # Product distribution pie chart
     product_counts = df['product_name'].value_counts().head(10)
@@ -262,6 +273,49 @@ with tab4:
         file_name="pharmacy_data_filtered.csv",
         mime="text/csv"
     )
+
+with tab5:
+    st.header("🆚 A/B Comparison: High vs. Low Severity Recalls")
+
+    # Derive severity if not present
+    if 'severity' not in df.columns:
+        df['severity'] = df.get('classification', '').str.extract(r'Class (\w+)')[0].map({'I': 'High', 'II': 'Med', 'III': 'Low'}).fillna('Low')
+
+    # Split into high and low severity
+    high_sev = df[df['severity'] == 'High']
+    low_sev = df[df['severity'].isin(['Low', 'Med'])]
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.subheader("High Severity Recalls")
+        st.metric("Total Records", len(high_sev))
+        st.metric("Avg Quantity", f"{high_sev['quantity_involved'].mean():.1f}")
+        st.metric("Most Common Reason", high_sev['reason'].mode()[0] if not high_sev['reason'].mode().empty else 'N/A')
+
+        # Bar chart for reasons
+        reason_high = high_sev['reason'].value_counts().head(5)
+        fig_high = px.bar(reason_high, x=reason_high.index, y=reason_high.values,
+                          title='Top Reasons (High Severity)', color=reason_high.index,
+                          color_discrete_sequence=px.colors.qualitative.Set1)
+        fig_high.update_layout(xaxis_title="Reason", yaxis_title="Count")
+        st.plotly_chart(fig_high, use_container_width=True)
+
+    with col2:
+        st.subheader("Low/Med Severity Recalls")
+        st.metric("Total Records", len(low_sev))
+        st.metric("Avg Quantity", f"{low_sev['quantity_involved'].mean():.1f}")
+        st.metric("Most Common Reason", low_sev['reason'].mode()[0] if not low_sev['reason'].mode().empty else 'N/A')
+
+        # Bar chart for reasons
+        reason_low = low_sev['reason'].value_counts().head(5)
+        fig_low = px.bar(reason_low, x=reason_low.index, y=reason_low.values,
+                         title='Top Reasons (Low/Med Severity)', color=reason_low.index,
+                         color_discrete_sequence=px.colors.qualitative.Pastel1)
+        fig_low.update_layout(xaxis_title="Reason", yaxis_title="Count")
+        st.plotly_chart(fig_low, use_container_width=True)
+
+    st.markdown("**Business Insight:** High-severity recalls (Class I) often stem from CGMP deviations, costing pharmacies ~$X more per incident. Compare to prioritize compliance efforts.")
 
 # Footer
 st.markdown("---")
