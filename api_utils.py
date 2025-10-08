@@ -63,14 +63,7 @@ def fetch_pharmacy_data(limit=500, years_back=5, retries=3, backoff_factor=2):
             df['total_amount'] = df['quantity_involved'] * np.random.uniform(5, 50, len(df))  # Randomized mock pricing for realism
             df['reason'] = df.get('reason_for_recall', 'N/A').fillna('N/A')
 
-            # Derive severity with enhanced logic
-            if 'classification' in df.columns:
-                df['severity'] = df['classification'].fillna('').str.extract(r'Class (\w+)')[0].map({'I': 'High', 'II': 'Med', 'III': 'Low'}).fillna('Low')
-                # Boost severity based on keywords in reason
-                high_keywords = ['serious', 'cgmp', 'contamination', 'death', 'injury']
-                df.loc[df['reason'].str.contains('|'.join(high_keywords), case=False, na=False), 'severity'] = 'High'
-            else:
-                df['severity'] = 'Low'  # Default
+            df = get_severity_data(df)
 
             print(f"Successfully fetched and processed {len(df)} records from openFDA.")
             return df
@@ -92,6 +85,24 @@ def fetch_pharmacy_data(limit=500, years_back=5, retries=3, backoff_factor=2):
 
     print("All attempts failed. Returning empty DataFrame for fallback.")
     return pd.DataFrame()
+
+def get_severity_data(df):
+    """
+    Centralize severity derivation with mapping and keyword boosts.
+    """
+    if 'classification' in df.columns:
+        df['severity'] = df['classification'].fillna('').str.extract(r'(Class \w+)')[0].map({
+            'Class I': 'high',
+            'Class II': 'medium',
+            'Class III': 'low'
+        }).fillna('low')
+        # Boost severity based on keywords in reason
+        high_keywords = ['serious', 'cgmp', 'contamination', 'death', 'injury']
+        df.loc[df['reason'].str.contains('|'.join(high_keywords), case=False, na=False), 'severity'] = 'high'
+    else:
+        df['severity'] = 'low'  # Default
+    return df
+
 
 def perform_hypothesis_test(df):
     """
