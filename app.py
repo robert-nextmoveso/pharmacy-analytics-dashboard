@@ -96,7 +96,7 @@ if filtered_df.empty:
 
 # Check if data loaded successfully
 if df.empty:
-    st.warning("⚠️ Failed to load data from API. Using sample data for demonstration.")
+    st.warning("⚠️ Failed to load data from API. Using sample data for analysis.")
     # Create sample data as backup
     sample_data = {
         'action_date': pd.date_range('2023-01-01', periods=10, freq='D'),

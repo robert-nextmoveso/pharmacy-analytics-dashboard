@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <title>Pharmacy Analytics Dashboard</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; }
@@ -23,11 +24,14 @@
 </head>
 <body>
     <div class="container">
-        <h1>💊 Pharmacy Analytics Dashboard</h1>
+        <h1><i class="fas fa-pills"></i> Pharmacy Analytics Dashboard</h1>
         <p class="description">Interactive analysis of FDA recalls for inventory optimization and compliance. Explore trends, products, correlations, raw data, and severity levels to identify risks and inform strategies.</p>
         
         <h2>Live Interactive Dashboard</h2>
-        <iframe src="https://pharmacy-analytics-dashboard-vothj8bpsyxgqxvzzkc3wc.streamlit.app/" title="Streamlit Dashboard"></iframe>
+        <p>Access the full interactive dashboard with tabs, filters, and charts:</p>
+        <div style="text-align: center; margin: 20px 0;">
+            <a href="https://pharmacy-analytics-dashboard-vothj8bpsyxgqxvzzkc3wc.streamlit.app/" target="_blank" class="btn" style="display: inline-block; padding: 15px 30px; background-color: #1f77b4; color: white; text-decoration: none; border-radius: 5px; font-size: 18px;">Open Streamlit Dashboard</a>
+        </div>
         
         <ul class="links">
             <li><a href="https://github.com/robert-nextmoveso/pharmacy-analytics-dashboard" target="_blank">GitHub Repository</a></li>
@@ -36,46 +40,42 @@
         </ul>
         
         <div class="section">
-            <h2 id="trends">📈 Trends</h2>
+            <h2 id="trends"><i class="fas fa-chart-line"></i> Trends</h2>
             <p>Analyze recall trends over time to identify patterns and predict future risks.</p>
-            <!-- Static chart placeholder -->
-            <img src="trends_combo.png" alt="Combo chart showing recall amounts and inventory proxy over time">
+            <img src="https://via.placeholder.com/800x400/1f77b4/white?text=Trends+Combo+Chart" alt="Combo chart showing recall amounts and inventory proxy over time" style="width: 100%; height: 400px; border-radius: 8px;">
             <p>This chart highlights seasonal patterns in recalls, aiding inventory planning.</p>
         </div>
         
         <div class="section">
-            <h2 id="products">📊 Products</h2>
+            <h2 id="products"><i class="fas fa-boxes"></i> Products</h2>
             <p>Identify high-risk products for targeted audits and inventory management.</p>
-            <!-- Static chart placeholders -->
-            <img src="products_bar.png" alt="Horizontal bar chart of top products by quantity, color-coded by severity">
+            <img src="https://via.placeholder.com/800x400/ff7f0e/white?text=Products+Bar+Chart" alt="Horizontal bar chart of top products by quantity, color-coded by severity" style="width: 100%; height: 400px; border-radius: 8px;">
             <p>This visualization helps prioritize audits for high-severity products to mitigate risks.</p>
-            <img src="products_pie.png" alt="Pie chart showing distribution of top 10 products by recall count">
+            <img src="https://via.placeholder.com/800x400/2ca02c/white?text=Products+Pie+Chart" alt="Pie chart showing distribution of top 10 products by recall count" style="width: 100%; height: 400px; border-radius: 8px;">
             <p>The pie chart illustrates the distribution of recalls across top products.</p>
         </div>
         
         <div class="section">
-            <h2 id="correlations">🔗 Correlations</h2>
+            <h2 id="correlations"><i class="fas fa-link"></i> Correlations</h2>
             <p>Compare high vs. low severity to uncover operational insights.</p>
-            <!-- Static chart placeholders -->
-            <img src="correlations_heatmap.png" alt="Heatmap of correlations between numeric variables">
+            <img src="https://via.placeholder.com/800x400/d62728/white?text=Correlations+Heatmap" alt="Heatmap of correlations between numeric variables" style="width: 100%; height: 400px; border-radius: 8px;">
             <p>This heatmap reveals relationships between variables, such as quantity and total amount, to inform risk assessment.</p>
-            <img src="correlations_scatter.png" alt="Scatter plot matrix for key variables">
+            <img src="https://via.placeholder.com/800x400/9467bd/white?text=Correlations+Scatter" alt="Scatter plot matrix for key variables" style="width: 100%; height: 400px; border-radius: 8px;">
             <p>The scatter plot matrix visualizes distributions and relationships for deeper analysis.</p>
         </div>
         
         <div class="section">
-            <h2 id="raw-data">📋 Raw Data</h2>
+            <h2 id="raw-data"><i class="fas fa-table"></i> Raw Data</h2>
             <p>View and filter raw data for detailed exploration.</p>
             <p>This table allows for custom filtering and export of data for further analysis. (Interactive in live dashboard)</p>
         </div>
         
         <div class="section">
-            <h2 id="severity">🆚 Severity</h2>
+            <h2 id="severity"><i class="fas fa-exclamation-triangle"></i> Severity</h2>
             <p>Examine recall severity levels to prioritize high-impact events. Break down common reasons for recalls by severity to inform prevention strategies.</p>
-            <!-- Static chart placeholders -->
-            <img src="severity_high.png" alt="Bar chart of top reasons for high-severity recalls">
+            <img src="https://via.placeholder.com/800x400/e377c2/white?text=Severity+High+Bar" alt="Bar chart of top reasons for high-severity recalls" style="width: 100%; height: 400px; border-radius: 8px;">
             <p>This chart shows the most frequent reasons for high-severity recalls, helping to focus prevention efforts.</p>
-            <img src="severity_low.png" alt="Bar chart of top reasons for low/medium-severity recalls">
+            <img src="https://via.placeholder.com/800x400/8c564b/white?text=Severity+Low+Bar" alt="Bar chart of top reasons for low/medium-severity recalls" style="width: 100%; height: 400px; border-radius: 8px;">
             <p>Comparing reasons across severity levels reveals patterns for operational improvements.</p>
             <p>High-severity recalls often involve critical issues like CGMP deviations, enabling prioritization of compliance measures.</p>
         </div>

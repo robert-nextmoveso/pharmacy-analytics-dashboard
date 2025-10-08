@@ -6,7 +6,7 @@
 [![Plotly](https://img.shields.io/badge/Plotly-Interactive_Viz-orange.svg)](https://plotly.com/)
 [![Pandas](https://img.shields.io/badge/Pandas-Data_Manipulation-green.svg)](https://pandas.pydata.org/)
 
-**Healthcare Analytics Project**: Advanced analysis of FDA enforcement data to predict recall risks and optimize pharmacy inventory—demonstrating 20% risk reduction through proactive compliance. Leverages 25+ years in pharmacy operations (Baptist Health forecasting) with cutting-edge data science techniques.
+**Healthcare Analytics Project**: Advanced analysis of FDA enforcement data to predict recall risks and optimize pharmacy inventory—demonstrating 20% risk reduction through proactive compliance. Leverages 25+ years in data analytics experience across diverse industries (including healthcare, federal operations, and legal sectors), combined with advanced data science techniques for pharmacy forecasting insights.
 
 ## Executive Summary
 Analyzed 300+ FDA recalls, forecasting 20% risk reduction in inventory waste. This project tackles a critical pharma challenge: reactive recall handling erodes profits and patient safety. By analyzing 300+ FDA enforcement records, we uncover patterns in high-severity recalls (15% Class I), enabling predictive alerts that could save pharmacies $50K annually in compliance costs based on avg unit cost. Key impact: Proactive risk mitigation via time-series forecasting and regression models, showcasing end-to-end analytics from API ETL to interactive dashboards.
@@ -16,12 +16,12 @@ Analyzed 300+ FDA recalls, forecasting 20% risk reduction in inventory waste. Th
 - **For Compliance Teams**: Detailed correlations and raw data exports to audit high-risk products and ensure regulatory adherence.
 - **For Analysts**: Advanced combo charts and hypothesis testing to derive deeper insights on recall patterns.
 
-![Demo](demo.gif)
+![Dashboard Overview](https://via.placeholder.com/800x400/1f77b4/white?text=Dashboard+Overview)
 
 ## Business Problem
 Pharmacies face significant losses from reactive recall management, including CGMP deviations in 2024 data that disrupt supply chains and incur regulatory fines. Core question: How can data-driven trends identify high-severity risks for proactive compliance and inventory optimization, ultimately reducing costs and improving patient outcomes?
 
-![Trends Preview](trends.png)
+![Trends Preview](https://via.placeholder.com/800x400/ff7f0e/white?text=Trends+Preview)
 
 ## Methodology
 ### Data Ingestion & ETL
@@ -45,7 +45,7 @@ Pharmacies face significant losses from reactive recall management, including CG
 - **Tools Chosen**: Pandas/NumPy for efficiency, Plotly for pharma stakeholders' needs.
 
 ## Recent Technical Updates
-Resolved Plotly ValueError in severity bar charts by ensuring proper x/y axis specification (e.g., x=reason_high.index, y=reason_high.values) for reliable analysis. Added try-except blocks around Plotly calls for robustness. Refined narratives for clarity and professionalism, aligning with concise, data-driven principles. Updated GitHub Pages site to mirror enhancements with iframes for live demos and static chart sections.
+Resolved Plotly ValueError in severity bar charts by ensuring proper x/y axis specification (e.g., x=reason_high.index, y=reason_high.values) for reliable analysis. Added try-except blocks around Plotly calls for robustness. Refined narratives for clarity and professionalism, aligning with concise, data-driven principles. Updated GitHub Pages site to mirror enhancements with static chart sections and interactive features.
 
 ## Skills Demonstrated
 - **ETL & Data Engineering**: Requests/Pandas pipelines, robust error handling, data derivation (e.g., severity mapping).
@@ -87,7 +87,7 @@ Resolved Plotly ValueError in severity bar charts by ensuring proper x/y axis sp
 6. **API Setup**: Free openFDA key at [openFDA](https://open.fda.gov/apis/); update in `api_utils.py` if needed.
 
 ## Live Demos (No Installation Required)
-- See 2-min walkthrough video for guided tour of interactive features.
+- Explore the interactive dashboard via Streamlit or GitHub Pages for a guided tour of features.
 - [Interactive Trends](trends.html) (Plotly zoom/hover for recall patterns).
 - [Severity Funnel](funnel.html) (Drop-offs by risk level).
 - [Full Interactive Dashboard](https://pharmacy-analytics-dashboard-vothj8bpsyxgqxvzzkc3wc.streamlit.app) (Streamlit with filters).
@@ -96,5 +96,5 @@ Resolved Plotly ValueError in severity bar charts by ensuring proper x/y axis sp
 
 Resume Bullet: "Built Streamlit dashboard for pharmacy recall analysis, enabling 40% faster insights via interactive trends and Prophet forecasts—GitHub: [link]"
 
-*"Data and AI eliminate admin burdens, empowering pharmacies to focus on patient care."* —Robert C. González
+*"Data and AI eliminate administrative burdens, empowering professionals to focus on what they excel at."* —Robert C. González
 [LinkedIn](https://linkedin.com/in/robert-g-612431384) | [Email](mailto:your-email@example.com)
