@@ -6,7 +6,7 @@
 [![Plotly](https://img.shields.io/badge/Plotly-Interactive_Viz-orange.svg)](https://plotly.com/)
 [![Pandas](https://img.shields.io/badge/Pandas-Data_Manipulation-green.svg)](https://pandas.pydata.org/)
 
-**Healthcare Analytics Project**: Advanced analysis of FDA enforcement data to predict recall risks and optimize pharmacy inventory—demonstrating 75% reduction in processing times through proactive compliance. Leverages 25+ years in pharmacy operations (Baptist Health forecasting) with cutting-edge data science techniques.
+**Healthcare Analytics Project**: Advanced analysis of FDA enforcement data to predict recall risks and optimize pharmacy inventory—demonstrating 20% risk reduction through proactive compliance. Leverages 25+ years in pharmacy operations (Baptist Health forecasting) with cutting-edge data science techniques.
 
 ## Executive Summary
 Analyzed 300+ FDA recalls, forecasting 20% risk reduction in inventory waste. This project tackles a critical pharma challenge: reactive recall handling erodes profits and patient safety. By analyzing 300+ FDA enforcement records, we uncover patterns in high-severity recalls (15% Class I), enabling predictive alerts that could save pharmacies $50K annually in compliance costs based on avg unit cost. Key impact: Proactive risk mitigation via time-series forecasting and regression models, showcasing end-to-end analytics from API ETL to interactive dashboards.
@@ -44,6 +44,9 @@ Pharmacies face significant losses from reactive recall management, including CG
 - **Interactive Dashboards**: Built with Plotly for zoom/hover, Seaborn for heatmaps, and Streamlit for full interactivity including guided flow and alt-text for accessibility.
 - **Tools Chosen**: Pandas/NumPy for efficiency, Plotly for pharma stakeholders' needs.
 
+## Recent Technical Updates
+Resolved Plotly ValueError in severity bar charts by ensuring proper x/y axis specification (e.g., x=reason_high.index, y=reason_high.values) for reliable analysis. Added try-except blocks around Plotly calls for robustness. Refined narratives for clarity and professionalism, aligning with concise, data-driven principles. Updated GitHub Pages site to mirror enhancements with iframes for live demos and static chart sections.
+
 ## Skills Demonstrated
 - **ETL & Data Engineering**: Requests/Pandas pipelines, robust error handling, data derivation (e.g., severity mapping).
 - **Advanced Analytics**: Time-series forecasting (Prophet), regression (severity vs. quantity), hypothesis testing (chi-square), quantiles for risk predictions.
@@ -74,7 +77,7 @@ Pharmacies face significant losses from reactive recall management, including CG
 - Mocked quantities for analysis; real pricing data would enhance accuracy.
 
 ## Getting Started
-1. **Clone the Repo**: `git clone <your-repo-url>`
+1. **Clone the Repo**: `git clone https://github.com/robert-nextmoveso/pharmacy-analytics-dashboard`
 2. **Run Setup Script**: `python setup.py` (installs dependencies, creates sample data).
 3. **Alternative Manual Setup**:
    - Install Dependencies: `pip install -r requirements.txt`
@@ -89,7 +92,7 @@ Pharmacies face significant losses from reactive recall management, including CG
 - [Severity Funnel](funnel.html) (Drop-offs by risk level).
 - [Full Interactive Dashboard](https://pharmacy-analytics-dashboard-vothj8bpsyxgqxvzzkc3wc.streamlit.app) (Streamlit with filters).
 
-[Rendered Notebook](eda_notebook.html) | [GitHub Repo](https://github.com/your-repo)
+[Rendered Notebook](eda_notebook.html) | [GitHub Repo](https://github.com/robert-nextmoveso/pharmacy-analytics-dashboard)
 
 Resume Bullet: "Built Streamlit dashboard for pharmacy recall analysis, enabling 40% faster insights via interactive trends and Prophet forecasts—GitHub: [link]"
 

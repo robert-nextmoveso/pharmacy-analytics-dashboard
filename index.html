@@ -4,30 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="data:,">
-    <title>Whispers of Wellness: Uncovering Pharmacy Recall Trends</title>
+    <title>Pharmacy Analytics Dashboard</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; }
         h1 { color: #1f77b4; text-align: center; }
         .container { max-width: 1200px; margin: 0 auto; }
-        .dashboard-links { list-style: none; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; }
-        .dashboard-links li { margin: 10px; }
-        .dashboard-links a { text-decoration: none; color: #007bff; font-size: 18px; padding: 10px; border: 1px solid #007bff; border-radius: 5px; transition: background-color 0.3s; }
-        .dashboard-links a:hover { background-color: #007bff; color: white; }
         .description { text-align: center; margin-bottom: 20px; }
+        .section { margin: 20px 0; padding: 15px; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .section h2 { color: #1f77b4; }
+        iframe { width: 100%; height: 600px; border: none; border-radius: 8px; }
+        .links { list-style: none; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; margin: 20px 0; }
+        .links li { margin: 10px; }
+        .links a { text-decoration: none; color: #007bff; font-size: 16px; padding: 10px; border: 1px solid #007bff; border-radius: 5px; transition: background-color 0.3s; }
+        .links a:hover { background-color: #007bff; color: white; }
+        img { max-width: 100%; height: auto; border-radius: 8px; }
+        footer { text-align: center; margin-top: 40px; padding: 20px; background: #1f77b4; color: white; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>💊 The Pulse of Prescriptions: A Journey Through Pharmacy Recall Data</h1>
-        <p class="description">Embark on a data-driven odyssey to uncover hidden patterns in FDA enforcement reports. From reactive recalls to proactive predictions, discover how trends can safeguard patient safety and streamline inventory. Dive into the story below.</p>
-        <ul class="dashboard-links">
-            <li><a href="trends.html">📈 Interactive Trends (Plotly)</a></li>
-            <li><a href="funnel.html">📊 Funnel Chart (Severity Drop-offs)</a></li>
-            <li><a href="eda_notebook.html">📓 Full EDA Notebook</a></li>
-            <li><a href="forecast.png">🔮 Recall Forecast (Prophet Model)</a></li>
-            <li><a href="https://pharmacy-analytics-dashboard-vothj8bpsyxgqxvzzkc3wc.streamlit.app" target="_blank">🚀 Full Interactive Dashboard (Streamlit)</a></li>
+        <h1>💊 Pharmacy Analytics Dashboard</h1>
+        <p class="description">Interactive analysis of FDA recalls for inventory optimization and compliance. Explore trends, products, correlations, raw data, and severity levels to identify risks and inform strategies.</p>
+        
+        <h2>Live Interactive Dashboard</h2>
+        <iframe src="https://pharmacy-analytics-dashboard-vothj8bpsyxgqxvzzkc3wc.streamlit.app/" title="Streamlit Dashboard"></iframe>
+        
+        <ul class="links">
+            <li><a href="https://github.com/robert-nextmoveso/pharmacy-analytics-dashboard" target="_blank">GitHub Repository</a></li>
+            <li><a href="https://open.fda.gov/apis/drug/enforcement/" target="_blank">openFDA API Documentation</a></li>
+            <li><a href="README.md">Project README</a></li>
         </ul>
-        <p style="text-align: center;">For more details, see <a href="README.md">README.md</a>.</p>
+        
+        <div class="section">
+            <h2 id="trends">📈 Trends</h2>
+            <p>Analyze recall trends over time to identify patterns and predict future risks.</p>
+            <!-- Static chart placeholder -->
+            <img src="trends_combo.png" alt="Combo chart showing recall amounts and inventory proxy over time">
+            <p>This chart highlights seasonal patterns in recalls, aiding inventory planning.</p>
+        </div>
+        
+        <div class="section">
+            <h2 id="products">📊 Products</h2>
+            <p>Identify high-risk products for targeted audits and inventory management.</p>
+            <!-- Static chart placeholders -->
+            <img src="products_bar.png" alt="Horizontal bar chart of top products by quantity, color-coded by severity">
+            <p>This visualization helps prioritize audits for high-severity products to mitigate risks.</p>
+            <img src="products_pie.png" alt="Pie chart showing distribution of top 10 products by recall count">
+            <p>The pie chart illustrates the distribution of recalls across top products.</p>
+        </div>
+        
+        <div class="section">
+            <h2 id="correlations">🔗 Correlations</h2>
+            <p>Compare high vs. low severity to uncover operational insights.</p>
+            <!-- Static chart placeholders -->
+            <img src="correlations_heatmap.png" alt="Heatmap of correlations between numeric variables">
+            <p>This heatmap reveals relationships between variables, such as quantity and total amount, to inform risk assessment.</p>
+            <img src="correlations_scatter.png" alt="Scatter plot matrix for key variables">
+            <p>The scatter plot matrix visualizes distributions and relationships for deeper analysis.</p>
+        </div>
+        
+        <div class="section">
+            <h2 id="raw-data">📋 Raw Data</h2>
+            <p>View and filter raw data for detailed exploration.</p>
+            <p>This table allows for custom filtering and export of data for further analysis. (Interactive in live dashboard)</p>
+        </div>
+        
+        <div class="section">
+            <h2 id="severity">🆚 Severity</h2>
+            <p>Examine recall severity levels to prioritize high-impact events. Break down common reasons for recalls by severity to inform prevention strategies.</p>
+            <!-- Static chart placeholders -->
+            <img src="severity_high.png" alt="Bar chart of top reasons for high-severity recalls">
+            <p>This chart shows the most frequent reasons for high-severity recalls, helping to focus prevention efforts.</p>
+            <img src="severity_low.png" alt="Bar chart of top reasons for low/medium-severity recalls">
+            <p>Comparing reasons across severity levels reveals patterns for operational improvements.</p>
+            <p>High-severity recalls often involve critical issues like CGMP deviations, enabling prioritization of compliance measures.</p>
+        </div>
+        
+        <p style="text-align: center; font-style: italic;">Guided by Portfolio Guide (structure and hooks), Telling Stories (concise visualizations and narratives), and Dashboard Demo (clean layout and flow).</p>
     </div>
+    
+    <footer>
+        <p>Data Source: openFDA Drug Enforcement API | Built with Streamlit, Pandas, Plotly | Author: Robert - <a href="https://github.com/robert-nextmoveso" style="color: white;">GitHub</a></p>
+    </footer>
 </body>
 </html>

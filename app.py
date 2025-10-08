@@ -42,8 +42,8 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Title
-st.markdown('<div class="main-header">💊 Echoes of Recalls: Predictive Insights from FDA Shadows</div>', unsafe_allow_html=True)
-st.markdown("Step into the narrative of pharmacy safety: From raw FDA data to actionable forecasts, explore how hidden patterns can prevent crises and optimize operations.")
+st.markdown('<div class="main-header">💊 Pharmacy Recall Analytics Dashboard</div>', unsafe_allow_html=True)
+st.markdown("Analyze FDA recall data to identify trends, risks, and insights for pharmacy inventory optimization and compliance.")
 
 # Sidebar controls
 st.sidebar.markdown('<div class="sidebar-header">⚙️ Controls</div>', unsafe_allow_html=True)
@@ -138,17 +138,17 @@ with col4:
 
 # Main content tabs using filtered_df
 tab1, tab2, tab3, tab4, tab5 = st.tabs([
-    "📈 Trends: Uncover Recall Patterns to Forecast Risks",
-    "📊 Products: Identify High-Risk Items for Targeted Audits",
-    "🔗 Correlations: Reveal Links Between Severity and Inventory to Prevent $50K Losses",
-    "📋 Data: Dive into Raw Records for Custom Analysis",
-    "🆚 Severity: Compare High vs. Low Risks to Prioritize Actions"
+    "📈 Trends",
+    "📊 Products",
+    "🔗 Correlations",
+    "📋 Raw Data",
+    "🆚 Severity"
 ])
 
 with tab1:
-    st.header("📈 Trends: Uncover Recall Patterns to Forecast Risks")
-    st.markdown("Witness the ebb and flow of pharmacy recalls—where spikes signal hidden risks, guiding proactive measures to protect patients and profits.")
-
+    st.header("📈 Trends")
+    st.markdown("Analyze recall trends over time to identify patterns and predict future risks.")
+    
     # Prepare time series data using filtered_df
     filtered_df_local = filtered_df.copy()  # Avoid modifying global
     filtered_df_local['action_date'] = pd.to_datetime(filtered_df_local['action_date'], errors='coerce')
@@ -163,79 +163,85 @@ with tab1:
     monthly_trends['inventory_proxy'] = monthly_trends['quantity_involved'] * np.random.uniform(10, 20, len(monthly_trends))  # Mock pricing for inventory value
 
     # Combo chart: line for recalls (total_amount), bar for inventory proxy
-    fig_combo = make_subplots(specs=[[{"secondary_y": True}]])
-    
-    # Add line for recalls
-    fig_combo.add_trace(
-        px.line(monthly_trends, x='action_date', y='total_amount', color_discrete_sequence=['blue']).data[0],
-        secondary_y=False,
-    )
-    
-    # Add bar for inventory proxy
-    fig_combo.add_trace(
-        px.bar(monthly_trends, x='action_date', y='inventory_proxy', color_discrete_sequence=['green']).data[0],
-        secondary_y=True,
-    )
-    
-    fig_combo.update_layout(
-        title="Balancing Recalls and Inventory: Key Pharmacy Insights",
-        xaxis_title="Month",
-        template='plotly_white'
-    )
-    fig_combo.update_yaxes(title_text="Recall Amount ($)", secondary_y=False)
-    fig_combo.update_yaxes(title_text="Inventory Proxy ($)", secondary_y=True)
-    
-    st.markdown("**Alt:** Combo chart with blue line for recall amounts over months and green bars for inventory proxy values, highlighting correlations for stock management.")
-    st.plotly_chart(fig_combo, use_container_width=True)
-    st.markdown("**Insight**: Overlaid trends reveal 15% correlation in Q3 spikes—action: Adjust stock levels.")
-    
-    st.markdown("**Next: Explore product risks in the Products tab to identify vulnerable items.**")
+    try:
+        fig_combo = make_subplots(specs=[[{"secondary_y": True}]])
+        
+        # Add line for recalls
+        fig_combo.add_trace(
+            px.line(monthly_trends, x='action_date', y='total_amount', color_discrete_sequence=['blue']).data[0],
+            secondary_y=False,
+        )
+        
+        # Add bar for inventory proxy
+        fig_combo.add_trace(
+            px.bar(monthly_trends, x='action_date', y='inventory_proxy', color_discrete_sequence=['green']).data[0],
+            secondary_y=True,
+        )
+        
+        fig_combo.update_layout(
+            title="Recall Amounts and Inventory Proxy Over Time",
+            xaxis_title="Month",
+            template='plotly_white'
+        )
+        fig_combo.update_yaxes(title_text="Recall Amount ($)", secondary_y=False)
+        fig_combo.update_yaxes(title_text="Inventory Proxy ($)", secondary_y=True)
+        
+        st.markdown("**Alt:** Combo chart with blue line for recall amounts over months and green bars for inventory proxy values, highlighting correlations for stock management.")
+        st.plotly_chart(fig_combo, use_container_width=True)
+        st.markdown("This chart highlights seasonal patterns in recalls, aiding inventory planning.")
+    except Exception as e:
+        st.error(f"Error generating trends combo chart: {e}")
 
 with tab2:
-    st.header("📊 Products: Identify High-Risk Items for Targeted Audits")
-    st.markdown("Unmask the heroes and villains in your inventory—where top products reveal vulnerabilities, empowering targeted audits for safer shelves.")
-
+    st.header("📊 Products")
+    st.markdown("Identify high-risk products for targeted audits and inventory management.")
+    
     # Top products by quantity with severity color-coding using filtered_df
     top_products_df = filtered_df.groupby('product_name').agg({'quantity_involved': 'sum', 'severity': lambda x: x.mode()[0] if not x.mode().empty else 'low'}).sort_values('quantity_involved', ascending=False).head(10).reset_index()
 
     # Horizontal bar chart with color by severity
     color_map = {'high': 'red', 'medium': 'orange', 'low': 'green'}
-    fig_products = px.bar(
-        top_products_df,
-        x='quantity_involved',
-        y='product_name',
-        orientation='h',
-        title='Top 10 Products by Quantity Involved (Color-Coded by Severity)',
-        template='plotly_white',
-        color='severity',
-        color_discrete_map=color_map,
-        labels={'quantity_involved': 'Quantity Involved', 'product_name': 'Product Name', 'severity': 'Severity'}
-    )
-    fig_products.update_layout(
-        xaxis_title="Quantity Involved",
-        yaxis_title="Product Name"
-    )
-    st.markdown("**Alt:** Horizontal bar chart of top 10 products by quantity, colored red for high severity, orange for medium, green for low.")
-    st.plotly_chart(fig_products, use_container_width=True)
-    st.markdown("**Tooltip Insight:** Red bars indicate high-severity products—prioritize these for compliance audits to reduce patient safety risks.")
+    try:
+        fig_products = px.bar(
+            top_products_df,
+            x='quantity_involved',
+            y='product_name',
+            orientation='h',
+            title='Top 10 Products by Quantity Involved (Color-Coded by Severity)',
+            template='plotly_white',
+            color='severity',
+            color_discrete_map=color_map,
+            labels={'quantity_involved': 'Quantity Involved', 'product_name': 'Product Name', 'severity': 'Severity'}
+        )
+        fig_products.update_layout(
+            xaxis_title="Quantity Involved",
+            yaxis_title="Product Name"
+        )
+        st.markdown("**Alt:** Horizontal bar chart of top 10 products by quantity, colored red for high severity, orange for medium, green for low.")
+        st.plotly_chart(fig_products, use_container_width=True)
+        st.markdown("This visualization helps prioritize audits for high-severity products to mitigate risks.")
+    except Exception as e:
+        st.error(f"Error generating products bar chart: {e}")
 
     # Product distribution pie chart
     product_counts = filtered_df['product_name'].value_counts().head(10)
-    fig_pie = px.pie(
-        values=product_counts.values,
-        names=product_counts.index,
-        title='Product Distribution (Top 10)',
-        template='plotly_white'
-    )
-    st.markdown("**Alt:** Pie chart showing distribution of top 10 products by recall count.")
-    st.plotly_chart(fig_pie, use_container_width=True)
-    
-    st.markdown("**Next: Uncover correlations in the Correlations tab to link severity with inventory impacts.**")
+    try:
+        fig_pie = px.pie(
+            values=product_counts.values,
+            names=product_counts.index,
+            title='Product Distribution (Top 10)',
+            template='plotly_white'
+        )
+        st.markdown("**Alt:** Pie chart showing distribution of top 10 products by recall count.")
+        st.plotly_chart(fig_pie, use_container_width=True)
+        st.markdown("The pie chart illustrates the distribution of recalls across top products.")
+    except Exception as e:
+        st.error(f"Error generating products pie chart: {e}")
 
 with tab3:
-    st.header("🔗 Correlations: Reveal Links Between Severity and Inventory to Prevent $50K Losses")
-    st.markdown("Follow the invisible threads linking variables—where correlations unveil predictive power, transforming uncertainty into strategic foresight.")
-
+    st.header("🔗 Correlations")
+    st.markdown("Compare high vs. low severity to uncover operational insights.")
+    
     # Select only numeric columns from filtered_df
     numeric_df = filtered_df.select_dtypes(include=[np.number])
 
@@ -256,6 +262,7 @@ with tab3:
         ax.set_title('Correlation Heatmap of Numeric Variables')
         st.markdown("**Alt:** Heatmap of correlations between numeric variables like quantity and amount, with colors from blue (negative) to red (positive).")
         st.pyplot(fig_corr)
+        st.markdown("This heatmap reveals relationships between variables, such as quantity and total amount, to inform risk assessment.")
 
         # Scatter plot matrix for key variables
         st.subheader("Scatter Plot Matrix")
@@ -266,16 +273,16 @@ with tab3:
             fig_scatter = sns.pairplot(numeric_df[available_vars], diag_kind='kde')
             st.markdown("**Alt:** Pairplot showing scatter between quantity involved and total amount, with KDE on diagonals.")
             st.pyplot(fig_scatter)
+            st.markdown("The scatter plot matrix visualizes distributions and relationships for deeper analysis.")
         else:
             st.info("Not enough numeric variables for scatter plot matrix")
     else:
         st.warning("No numeric columns available for correlation analysis")
-    
-    st.markdown("**Next: Examine raw data in the Data tab for deeper custom filtering.**")
 
 with tab4:
-    st.header("📋 Data: Dive into Raw Records for Custom Analysis")
-
+    st.header("📋 Raw Data")
+    st.markdown("View and filter raw data for detailed exploration.")
+    
     # Data filters on top of date-filtered data
     col1, col2 = st.columns(2)
 
@@ -322,12 +329,12 @@ with tab4:
         mime="text/csv"
     )
     
-    st.markdown("**Next: Compare severity levels in the Severity tab to prioritize high-risk actions.**")
+    st.markdown("This table allows for custom filtering and export of data for further analysis.")
 
 with tab5:
-    st.header("🆚 Severity: Compare High vs. Low Risks to Prioritize Actions")
-    st.markdown("Contrast the light and dark: High-severity crises vs. low-risk echoes, revealing strategies to elevate safety and slash costs.")
-
+    st.header("🆚 Severity")
+    st.markdown("Examine recall severity levels to prioritize high-impact events. Break down common reasons for recalls by severity to inform prevention strategies.")
+    
     # Use centralized severity (already lowercase)
     # Split into high and low/medium severity using filtered_df
     high_sev = filtered_df[filtered_df['severity'] == 'high']
@@ -343,12 +350,16 @@ with tab5:
 
         # Bar chart for reasons
         reason_high = high_sev['reason'].value_counts().head(5)
-        fig_high = px.bar(reason_high, x=reason_high.index, y=reason_high.values,
-                          title='Top Reasons (High Severity)', color=reason_high.index,
-                          color_discrete_sequence=px.colors.qualitative.Set1)
-        fig_high.update_layout(xaxis_title="Reason", yaxis_title="Count")
-        st.markdown("**Alt:** Bar chart of top 5 reasons for high-severity recalls, colored distinctly.")
-        st.plotly_chart(fig_high, use_container_width=True)
+        try:
+            fig_high = px.bar(x=reason_high.index, y=reason_high.values,
+                              title='Top Reasons (High Severity)', color=reason_high.index,
+                              color_discrete_sequence=px.colors.qualitative.Set1)
+            fig_high.update_layout(xaxis_title="Reason", yaxis_title="Count")
+            st.markdown("**Alt:** Bar chart of top 5 reasons for high-severity recalls, colored distinctly.")
+            st.plotly_chart(fig_high, use_container_width=True)
+            st.markdown("This chart shows the most frequent reasons for high-severity recalls, helping to focus prevention efforts.")
+        except Exception as e:
+            st.error(f"Error generating high severity chart: {e}")
 
     with col2:
         st.subheader("Low/Medium Severity Recalls")
@@ -358,16 +369,18 @@ with tab5:
 
         # Bar chart for reasons
         reason_low = low_med_sev['reason'].value_counts().head(5)
-        fig_low = px.bar(reason_low, x=reason_low.index, y=reason_low.values,
-                         title='Top Reasons (Low/Medium Severity)', color=reason_low.index,
-                         color_discrete_sequence=px.colors.qualitative.Pastel1)
-        fig_low.update_layout(xaxis_title="Reason", yaxis_title="Count")
-        st.markdown("**Alt:** Bar chart of top 5 reasons for low/medium-severity recalls, in pastel colors.")
-        st.plotly_chart(fig_low, use_container_width=True)
+        try:
+            fig_low = px.bar(x=reason_low.index, y=reason_low.values,
+                             title='Top Reasons (Low/Medium Severity)', color=reason_low.index,
+                             color_discrete_sequence=px.colors.qualitative.Pastel1)
+            fig_low.update_layout(xaxis_title="Reason", yaxis_title="Count")
+            st.markdown("**Alt:** Bar chart of top 5 reasons for low/medium-severity recalls, in pastel colors.")
+            st.plotly_chart(fig_low, use_container_width=True)
+            st.markdown("Comparing reasons across severity levels reveals patterns for operational improvements.")
+        except Exception as e:
+            st.error(f"Error generating low/medium severity chart: {e}")
 
-    st.markdown("**Business Insight:** High-severity recalls (Class I) often stem from CGMP deviations, costing pharmacies ~$X more per incident. Compare to prioritize compliance efforts.")
-    
-    st.markdown("**Dashboard End: Use insights to drive pharmacy safety and efficiency.**")
+    st.markdown("High-severity recalls often involve critical issues like CGMP deviations, enabling prioritization of compliance measures.")
 
 # Footer
 st.markdown("---")
