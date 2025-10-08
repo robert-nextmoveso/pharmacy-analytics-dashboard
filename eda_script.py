@@ -41,7 +41,7 @@ print("Trends Plot: Tracks recall amounts over time—why it matters: Reveals Q3
 top_products = df.groupby('product_name')['quantity_involved'].sum().sort_values(ascending=False).head(10)
 plt.figure(figsize=(10, 6))
 sns.barplot(x=top_products.values, y=top_products.index, palette='viridis')
-plt.title('Top Products by Quantity Involved - High-Risk Inventory Focus')
+plt.title('Guardians of Quality: Top Products by Quantity Involved')
 plt.xlabel('Quantity Involved')
 plt.ylabel('Product Name')
 plt.savefig('top_products.png', dpi=300, bbox_inches='tight')
@@ -53,7 +53,7 @@ numerical_df = df.select_dtypes(include=[np.number])
 corr = numerical_df.corr()
 plt.figure(figsize=(8, 6))
 sns.heatmap(corr, annot=True, cmap='coolwarm', center=0)
-plt.title('Data Correlations - Identifying Key Relationships')
+plt.title('Threads of Connection: Data Correlations Unveiled')
 plt.savefig('correlations.png', dpi=300, bbox_inches='tight')
 plt.close()
 print("Correlation Heatmap: Reveals relationships like quantity vs. severity—why it matters: Guides predictive models for compliance forecasting.")
@@ -61,7 +61,7 @@ print("Correlation Heatmap: Reveals relationships like quantity vs. severity—w
 # Funnel chart for severity drop-offs (example: count by reason)
 reason_counts = df['reason'].value_counts().reset_index()
 reason_counts.columns = ['Reason', 'Count']
-funnel_fig = px.funnel(reason_counts, x='Count', y='Reason', title='Recall Reasons Funnel - Severity Drop-Offs')
+funnel_fig = px.funnel(reason_counts, x='Count', y='Reason', title='Funnel of Fate: Recall Reasons and Severity Drop-Offs')
 funnel_fig.update_layout(
     xaxis_title="Count of Recalls",
     yaxis_title="Reason for Recall"

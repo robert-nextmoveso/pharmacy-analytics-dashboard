@@ -40,8 +40,8 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Title
-st.markdown('<div class="main-header">💊 Pharmacy Analytics Dashboard</div>', unsafe_allow_html=True)
-st.markdown("Interactive dashboard for analyzing drug enforcement and recall data from openFDA API")
+st.markdown('<div class="main-header">💊 Echoes of Recalls: Predictive Insights from FDA Shadows</div>', unsafe_allow_html=True)
+st.markdown("Step into the narrative of pharmacy safety: From raw FDA data to actionable forecasts, explore how hidden patterns can prevent crises and optimize operations.")
 
 # Sidebar controls
 st.sidebar.markdown('<div class="sidebar-header">⚙️ Controls</div>', unsafe_allow_html=True)
@@ -106,10 +106,11 @@ with col4:
     st.markdown('</div>', unsafe_allow_html=True)
 
 # Main content tabs
-tab1, tab2, tab3, tab4, tab5 = st.tabs(["📈 Trends", "📊 Products", "🔗 Correlations", "📋 Raw Data", "🆚 A/B Comparison"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["📈 The Rising Tide: Recall Trends Unveiled", "📊 Guardians of Quality: Product Insights", "🔗 Threads of Connection: Data Correlations", "📋 Raw Chronicles: The Data Beneath", "🆚 Shadows of Severity: A/B Revelations"])
 
 with tab1:
-    st.header("📈 Recall Trends Over Time")
+    st.header("📈 The Rising Tide: Recall Trends Over Time")
+    st.markdown("Witness the ebb and flow of pharmacy recalls—where spikes signal hidden risks, guiding proactive measures to protect patients and profits.")
 
     # Prepare time series data
     df['action_date'] = pd.to_datetime(df['action_date'], errors='coerce')
@@ -155,7 +156,8 @@ with tab1:
     st.plotly_chart(fig_monthly, use_container_width=True)
 
 with tab2:
-    st.header("📊 Product Analysis")
+    st.header("📊 Guardians of Quality: Product Analysis")
+    st.markdown("Unmask the heroes and villains in your inventory—where top products reveal vulnerabilities, empowering targeted audits for safer shelves.")
 
     # Top products by quantity with severity color-coding
     top_products_df = df.groupby('product_name').agg({'quantity_involved': 'sum', 'severity': lambda x: x.mode()[0] if not x.mode().empty else 'Low'}).sort_values('quantity_involved', ascending=False).head(10).reset_index()
@@ -191,7 +193,8 @@ with tab2:
     st.plotly_chart(fig_pie, use_container_width=True)
 
 with tab3:
-    st.header("🔗 Data Correlations")
+    st.header("🔗 Threads of Connection: Data Correlations")
+    st.markdown("Follow the invisible threads linking variables—where correlations unveil predictive power, transforming uncertainty into strategic foresight.")
 
     # Select only numeric columns
     numeric_df = df.select_dtypes(include=[np.number])
@@ -275,7 +278,8 @@ with tab4:
     )
 
 with tab5:
-    st.header("🆚 A/B Comparison: High vs. Low Severity Recalls")
+    st.header("🆚 Shadows of Severity: A/B Comparison of Recalls")
+    st.markdown("Contrast the light and dark: High-severity crises vs. low-risk echoes, revealing strategies to elevate safety and slash costs.")
 
     # Derive severity if not present
     if 'severity' not in df.columns:
