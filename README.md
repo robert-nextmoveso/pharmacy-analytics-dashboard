@@ -16,12 +16,12 @@ Analyzed 300+ FDA recalls, forecasting 20% risk reduction in inventory waste. Th
 - **For Compliance Teams**: Detailed correlations and raw data exports to audit high-risk products and ensure regulatory adherence.
 - **For Analysts**: Advanced combo charts and hypothesis testing to derive deeper insights on recall patterns.
 
-![Dashboard Overview](https://via.placeholder.com/800x400/1f77b4/white?text=Dashboard+Overview)
+[Persona Visual](images/dashboard-overview.png)
 
 ## Business Problem
 Pharmacies face significant losses from reactive recall management, including CGMP deviations in 2024 data that disrupt supply chains and incur regulatory fines. Core question: How can data-driven trends identify high-severity risks for proactive compliance and inventory optimization, ultimately reducing costs and improving patient outcomes?
 
-![Trends Preview](https://via.placeholder.com/800x400/ff7f0e/white?text=Trends+Preview)
+[Business Problem Visual](images/trends-preview.png)
 
 ## Methodology
 ### Data Ingestion & ETL
@@ -53,6 +53,7 @@ Resolved Plotly ValueError in severity bar charts by ensuring proper x/y axis sp
 - **Visualization & BI**: Interactive Plotly charts (combo subplots), Seaborn heatmaps, Streamlit dashboards with filters and narrative arcs.
 - **Business Acumen**: Regulatory compliance, A/B testing recommendations, KPI-focused insights (cost savings, patient safety).
 - **Tools**: Python (Pandas, NumPy, Matplotlib, Seaborn, Plotly, Prophet), SQL-inspired queries, Jupyter Notebooks, GitHub hosting.
+This analysis can be extended using SQL for complex joins and aggregations, Power Platform components like Power Query for data transformation (via M language), and DAX for advanced metrics in Power BI reports. Complementary tools like Excel for ad-hoc pivoting and Power BI for interactive dashboards further enable scalable deployment.
 
 ## Results & Business Recommendations
 ### Key Findings
@@ -69,7 +70,7 @@ Resolved Plotly ValueError in severity bar charts by ensuring proper x/y axis sp
 ## Next Steps Timeline
 - **Week 1**: ML integration (e.g., random forest for recall prediction).
 - **Week 2**: FAERS API for adverse event correlations.
-- **Week 3**: Build SMB tool via Next Move Solutions for scalable deployment.
+- **Week 3**: Collaborate on custom integrations (e.g., API feeds or real-time alerts), accelerating your team's ROI by 20-30% through proactive risk mitigation and streamlined compliance reporting.
 - **Ongoing**: Add user feedback loop for dashboard refinements.
 
 ## Limitations
@@ -88,13 +89,12 @@ Resolved Plotly ValueError in severity bar charts by ensuring proper x/y axis sp
 
 ## Live Demos (No Installation Required)
 - Explore the interactive dashboard via Streamlit or GitHub Pages for a guided tour of features.
-- [Interactive Trends](trends.html) (Plotly zoom/hover for recall patterns).
-- [Severity Funnel](funnel.html) (Drop-offs by risk level).
+- [View Live GitHub Pages Demo](https://robert-nextmoveso.github.io/pharmacy-analytics-dashboard/)
 - [Full Interactive Dashboard](https://pharmacy-analytics-dashboard-vothj8bpsyxgqxvzzkc3wc.streamlit.app) (Streamlit with filters).
 
-[Rendered Notebook](eda_notebook.html) | [GitHub Repo](https://github.com/robert-nextmoveso/pharmacy-analytics-dashboard)
+View the notebook as source code in the repo | [GitHub Repo](https://github.com/robert-nextmoveso/pharmacy-analytics-dashboard)
 
 Resume Bullet: "Built Streamlit dashboard for pharmacy recall analysis, enabling 40% faster insights via interactive trends and Prophet forecasts—GitHub: [link]"
 
 *"Data and AI eliminate administrative burdens, empowering professionals to focus on what they excel at."* —Robert C. González
-[LinkedIn](https://linkedin.com/in/robert-g-612431384) | [Email](mailto:your-email@example.com)
+[LinkedIn](https://linkedin.com/in/robert-g-612431384) | [Email](mailto:robert@nextmoveso.com)
