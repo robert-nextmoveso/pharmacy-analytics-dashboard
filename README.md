@@ -16,12 +16,12 @@ Analyzed 300+ FDA recalls, forecasting 20% risk reduction in inventory waste. Th
 - **For Compliance Teams**: Detailed correlations and raw data exports to audit high-risk products and ensure regulatory adherence.
 - **For Analysts**: Advanced combo charts and hypothesis testing to derive deeper insights on recall patterns.
 
-[Persona Visual](images/dashboard-overview.png)
+[Persona Visual](assets/images/persona-diagram.png)
 
 ## Business Problem
 Pharmacies face significant losses from reactive recall management, including CGMP deviations in 2024 data that disrupt supply chains and incur regulatory fines. Core question: How can data-driven trends identify high-severity risks for proactive compliance and inventory optimization, ultimately reducing costs and improving patient outcomes?
 
-[Business Problem Visual](images/trends-preview.png)
+[Business Problem Visual](assets/images/business-problem-diagram.png)
 
 ## Methodology
 ### Data Ingestion & ETL
@@ -91,8 +91,8 @@ This analysis can be extended using SQL for complex joins and aggregations, Powe
 - Explore the interactive dashboard via Streamlit or GitHub Pages for a guided tour of features.
 - [View Live GitHub Pages Demo](https://robert-nextmoveso.github.io/pharmacy-analytics-dashboard/)
 - [Full Interactive Dashboard](https://pharmacy-analytics-dashboard-vothj8bpsyxgqxvzzkc3wc.streamlit.app) (Streamlit with filters).
-
-View the notebook as source code in the repo | [GitHub Repo](https://github.com/robert-nextmoveso/pharmacy-analytics-dashboard)
+- [Rendered Notebook](https://nbviewer.jupyter.org/github/robert-nextmoveso/pharmacy-analytics-dashboard/blob/main/eda_notebook.ipynb)
+- [GitHub Repo](https://github.com/robert-nextmoveso/pharmacy-analytics-dashboard)
 
 Resume Bullet: "Built Streamlit dashboard for pharmacy recall analysis, enabling 40% faster insights via interactive trends and Prophet forecasts—GitHub: [link]"
 

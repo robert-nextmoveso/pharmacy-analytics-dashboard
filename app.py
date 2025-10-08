@@ -307,13 +307,13 @@ with tab3:
 
         # Scatter plot matrix for key variables
         st.subheader("Scatter Plot Matrix")
-        key_vars = ['quantity_involved', 'total_amount']
+        key_vars = ['quantity_involved', 'total_amount', 'severity_score']
         available_vars = [var for var in key_vars if var in numeric_df.columns]
 
         if len(available_vars) >= 2:
             fig_scatter = sns.pairplot(numeric_df[available_vars], diag_kind='kde')
             st.markdown("**Alt:** Pairplot showing scatter between quantity involved and total amount, with KDE on diagonals.")
-            st.pyplot(fig_scatter)
+            st.pyplot(fig_scatter.fig)
             st.markdown("This heatmap reveals relationships between variables, such as quantity and total amount, to inform risk assessment.")
         else:
             st.info("Not enough numeric variables for scatter plot matrix")
@@ -376,8 +376,11 @@ with tab5:
     st.header("🆚 Severity")
     st.markdown("Severity funnel breaks down incidents: Low (70%, n=1,200) poses minimal risk, but High (15%, n=260) correlates with $500K+ in damages—use this to prioritize alerts, reducing severe outcomes by 30% via early intervention.")
 
+    # Filter for non-zero severities
+    severity_filtered = filtered_df[filtered_df['severity'].isin(['low', 'medium', 'high']) & filtered_df['severity'].notna()]
+
     # Severity funnel chart
-    severity_counts = filtered_df['severity'].value_counts().sort_index()
+    severity_counts = severity_filtered['severity'].value_counts().sort_index()
     severity_data = pd.DataFrame({
         'stage': ['Low', 'Medium', 'High'],
         'count': [severity_counts.get('low', 0), severity_counts.get('medium', 0), severity_counts.get('high', 0)]
@@ -393,8 +396,8 @@ with tab5:
     
     # Use centralized severity (already lowercase)
     # Split into high and low/medium severity using filtered_df
-    high_sev = filtered_df[filtered_df['severity'] == 'high']
-    low_med_sev = filtered_df[filtered_df['severity'].isin(['low', 'medium'])]
+    high_sev = severity_filtered[severity_filtered['severity'] == 'high']
+    low_med_sev = severity_filtered[severity_filtered['severity'].isin(['low', 'medium'])]
 
     col1, col2 = st.columns(2)
 
